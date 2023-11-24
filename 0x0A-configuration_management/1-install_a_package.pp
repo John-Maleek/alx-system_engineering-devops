@@ -1,7 +1,11 @@
 # Installs a package using pip3
 
-package { 'flask':
+package { 'python3-pip':
   ensure => installed,
+}
+
+package { 'Flask':
+  ensure   => '2.1.0',
   provider => 'pip3',
-  version => '2.1.0'
+  require  => Package['python3-pip'],
 }
