@@ -1,5 +1,37 @@
-# sxript installs Nginx web server (w/ Puppet)
-exec { 'server configuration':
-  provider => shell,
-  command  => 'sudo apt-get -y update; sudo apt-get -y install nginx; echo "Hello World!" > /var/www/html/index.html; sudo sed -i "/server_name _;/a location /redirect_me {\\n\\treturn 301 https://google.com; listen 80; \\n\\t}\\n" /etc/nginx/sites-available/default; sudo service nginx restart'
+# script installs Nginx web server (w/ Puppet)
+include stdlib
+
+$link = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
+$content = "\trewrite ^/redirect_me/$ ${link} permanent;"
+
+exec { 'update packages':
+  command => '/usr/bin/apt-get update'
+}
+
+exec { 'restart nginx':
+  command => '/usr/sbin/service nginx restart',
+  require => Package['nginx']
+}
+
+package { 'nginx':
+  ensure  => 'installed',
+  require => Exec['update packages']
+}
+
+file { '/var/www/html/index.html':
+  ensure  => 'present',
+  content => 'Holberton School',
+  mode    => '0644',
+  owner   => 'root',
+  group   => 'root'
+}
+
+file_line { 'Set 301 redirection':
+  ensure   => 'present',
+  after    => 'server_name\ _;',
+  path     => '/etc/nginx/sites-available/default',
+  multiple => true,
+  line     => $content,
+  notify   => Exec['restart nginx'],
+  require  => File['/var/www/html/index.html']
 }
