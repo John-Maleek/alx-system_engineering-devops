@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run nginx as nginx
 pkill apache2
-sed -i 's/80 default_server/8080 default_server/' /etc/nginx/sites-available/default
-chown nginx:nginx /etc/nginx/nginx.conf
-chown 755 /etc/nginx/nginx.conf
-sudo -u nginx service nginx restart
+sed -i "s/listen 80/listen 8080/" /etc/nginx/sites-available/default
+sed -i "s/listen \[::\]:80/listen \[::\]:8080/" /etc/nginx/sites-available/default
+chmod 0644 /etc/nginx/nginx.conf
+su nginx -c "service nginx start"
