@@ -21,11 +21,10 @@ if __name__ == "__main__":
                 count = count + 1
         return count
 
-    print("Employee {EMPLOYEE_NAME} is done with \
-          tasks({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS})\
-          :".format(EMPLOYEE_NAME=user_res['name'],
-                    NUMBER_OF_DONE_TASKS=get_tasks_done(),
-                    TOTAL_NUMBER_OF_TASKS=len(todos_res)))
+    print("Employee {name} is done with tasks({done}/{total}:"
+          .format(name=user_res['name'],
+                  done=get_tasks_done(),
+                  total=len(todos_res)))
 
     for item in todos_res:
         if item['completed']:
