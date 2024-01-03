@@ -19,7 +19,7 @@ if __name__ == "__main__":
                                  users=users_url, id=user['id'])).json()
         data = []
         for item in todos_res:
-            data.append({"username": "{}".format(user['name']),
+            data.append({"username": "{}".format(user['username']),
                          "task": "{}".format(item['title']),
                          "completed": "{}".format(item['completed']),
                          })

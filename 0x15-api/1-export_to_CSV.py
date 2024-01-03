@@ -19,7 +19,7 @@ if __name__ == "__main__":
     data = []
     for item in todos_res:
         data.append(["{}".format(user_id),
-                     "{}".format(user_res['name']),
+                     "{}".format(user_res['username']),
                      "{}".format(item['completed']),
                      "{}".format(item['title'])])
 

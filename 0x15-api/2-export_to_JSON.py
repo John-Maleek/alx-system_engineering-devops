@@ -20,7 +20,7 @@ if __name__ == "__main__":
     for item in todos_res:
         data.append({"task": "{}".format(item['title']),
                      "completed": "{}".format(item['completed']),
-                     "username": "{}".format(user_res['name']),
+                     "username": "{}".format(user_res['username']),
                      })
 
     file_name = "{USER_ID}.json".format(USER_ID=user_id)
