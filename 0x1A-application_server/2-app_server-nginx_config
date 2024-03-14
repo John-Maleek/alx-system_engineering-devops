@@ -1,0 +1,26 @@
+# Default server configuration to serve webpage locally and on public IP
+server {
+    listen 80;
+    server_name localhost;
+
+    root /var/www/html;
+    index index.html;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+# Server configuration to serve webpage on public IP
+server {
+    listen 80;
+    server_name 100.25.17.32;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000;
+    }
+}
